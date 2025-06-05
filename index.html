@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Antipas Zemba | Junior Software Developer</title>
+      <meta name="description" content="Portfolio of Antipas Zemba - Junior Software Developer. Projects, skills, contact." />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+      <style>
+        /* Reset */
+        *, *::before, *::after {
+          box-sizing: border-box;
+        }
+        html {
+          scroll-behavior: smooth;
+        }
+        body {
+          margin: 0;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+            Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          background-color: #121212;
+          color: #e0e0e0;
+          line-height: 1.6;
+          min-height: 100vh;
+          transition: background-color 0.3s, color 0.3s;
+        }
+        body.light {
+          background-color: #fafafa;
+          color: #222;
+        }
+        a {
+          color: inherit;
+          text-decoration: none;
+          position: relative;
+        }
+        a::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background-color: currentColor;
+          bottom: 0;
+          left: 0;
+          transform-origin: right;
+          transform: scaleX(0);
+          transition: transform 0.3s ease;
+        }
+        a:hover::after, a:focus::after {
+          transform-origin: left;
+          transform: scaleX(1);
+          outline: none;
+        }
+        h1, h2, h3 {
+          margin: 0 0 1rem 0;
+          font-weight: 700;
+        }
+        h2 {
+          border-bottom: 2px solid currentColor;
+          padding-bottom: 0.3rem;
+        }
+        main {
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 6rem 1rem 3rem;
+        }
+        /* Header */
+        header#header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background: transparent;
+          color: #e0e0e0;
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1.2rem 2rem;
+          transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+        header#header.scrolled {
+          background-color: #1e1e1e;
+          box-shadow: 0 2px 8px rgb(0 0 0 / 0.7);
+        }
+        body.light header#header {
+          color: #222;
+        }
+        body.light header#header.scrolled {
+          background-color: #fff;
+          box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+        }
+        .logo {
+          font-weight: 500;
+          font-size: 1.2rem;
+          cursor: default;
+          user-select: none;
+        }
+        nav {
+          display: flex;
+          gap: 2rem;
+        }
+        nav a {
+          font-weight: 600;
+          font-size: 1rem;
+          padding-bottom: 0.3rem;
+          border-bottom: 2px solid transparent;
+          cursor: pointer;
+        }
+        nav a.active,
+        nav a:hover,
+        nav a:focus {
+          border-bottom-color: currentColor;
+          outline: none;
+        }
+        /* Theme toggle */
+        #theme-toggle {
+          cursor: pointer;
+          border: 2px solid currentColor;
+          border-radius: 20px;
+          padding: 0.3rem 1rem;
+          background: transparent;
+          font-weight: 600;
+          font-size: 0.9rem;
+          user-select: none;
+          transition: background-color 0.3s, color 0.3s;
+        }
+        #theme-toggle:hover,
+        #theme-toggle:focus {
+          background-color: currentColor;
+          color: var(--bg);
+          outline: none;
+        }
+        body.light #theme-toggle:hover,
+        body.light #theme-toggle:focus {
+          color: #fafafa;
+        }
+        /* Hero Section */
+        section#hero {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          height: 100vh;
+          max-height: 350px;
+          text-align: center;
+          user-select: none;
+        }
+        #hero h1 {
+          font-size: 3.8rem;
+          margin-bottom: 0.5rem;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        #hero p {
+          font-size: 1.4rem;
+          font-weight: 500;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+          max-width: 500px;
+          margin: 0 auto;
+        }
+        #hero.visible h1,
+        #hero.visible p {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        /* Sections */
+        section {
+          margin-bottom: 3.5rem;
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        section.visible {
+          opacity: 1;
+          transform: none;
+        }
+        /* About Me */
+        /* #about p {
+          font-size: 1.1rem;
+          max-width: 720px;
+          margin: 0 auto;
+        } */
+        /* Projects */
+        #projects {
+          display: flex;
+          flex-direction: column;
+        }
+        .filter-buttons {
+          display: flex;
+          gap: 0.7rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.8rem;
+          justify-content: center;
+        }
+        .filter-button {
+          background-color: #333;
+          color: #eee;
+          border: none;
+          border-radius: 20px;
+          padding: 0.4rem 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          user-select: none;
+        }
+        .filter-button.active,
+        .filter-button:hover,
+        .filter-button:focus {
+          background-color: #fff;
+          color: #121212;
+          outline: none;
+        }
+        body.light .filter-button {
+          background-color: #ddd;
+          color: #222;
+        }
+        body.light .filter-button.active,
+        body.light .filter-button:hover,
+        body.light .filter-button:focus {
+          background-color: #222;
+          color: #fafafa;
+        }
+        .projects-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+          gap: 1.8rem;
+        }
+        .project-card {
+          background-color: #1e1e1e;
+          border-radius: 12px;
+          padding: 1.6rem 1.2rem;
+          box-shadow: 0 2px 8px rgb(0 0 0 / 0.5);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          cursor: pointer;
+          transition: box-shadow 0.3s ease;
+          outline-offset: 4px;
+        }
+        .project-card:hover,
+        .project-card:focus-visible {
+          box-shadow: 0 6px 18px rgb(0 0 0 / 0.7);
+          outline: none;
+        }
+        .project-card h3 {
+          color: #fff;
+          font-weight: 700;
+          margin-bottom: 0.6rem;
+        }
+        .project-card p {
+          color: #bbb;
+          font-size: 0.95rem;
+          flex-grow: 1;
+          margin-bottom: 1rem;
+        }
+        .tech-tags {
+          margin-bottom: 1rem;
+        }
+        .tech-tag {
+          display: inline-block;
+          background-color: #444;
+          color: #ddd;
+          font-size: 0.75rem;
+          padding: 0.3rem 0.7rem;
+          border-radius: 15px;
+          margin-right: 0.5rem;
+          margin-bottom: 0.3rem;
+          user-select: none;
+        }
+        /* Contact Section */
+        #contact form {
+          max-width: 480px;
+          margin: 1rem auto 0;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        #contact input, #contact textarea {
+          padding: 0.7rem 1rem;
+          font-size: 1rem;
+          border: 2px solid #444;
+          border-radius: 8px;
+          background-color: transparent;
+          color: inherit;
+          resize: vertical;
+          transition: border-color 0.3s;
+        }
+        #contact input:focus, #contact textarea:focus {
+          border-color: #fff;
+          outline: none;
+        }
+        #contact button {
+          background-color: #fff;
+          color: #121212;
+          border: none;
+          padding: 0.75rem 1rem;
+          font-weight: 700;
+          font-size: 1.1rem;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+        #contact button:hover,
+        #contact button:focus {
+          background-color: #bbb;
+          outline: none;
+        }
+        #contact p#form-response {
+          margin-top: 0.5rem;
+          font-size: 0.9rem;
+          min-height: 1.2em;
+        }
+        /* Modal */
+        .modal {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background-color: rgba(18, 18, 18, 0.95);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+          padding: 1rem;
+          z-index: 1500;
+        }
+        .modal.active {
+          opacity: 1;
+          pointer-events: auto;
+        }
+        .modal-content {
+          background-color: #222;
+          color: #eee;
+          max-width: 600px;
+          width: 100%;
+          border-radius: 12px;
+          padding: 2rem;
+          position: relative;
+          max-height: 90vh;
+          overflow-y: auto;
+        }
+        body.light .modal-content {
+          background-color: #fafafa;
+          color: #222;
+        }
+        .modal-content h3 {
+          margin-top: 0;
+        }
+        .modal-content p {
+          margin-bottom: 1rem;
+          line-height: 1.5;
+        }
+        .modal-tech-tags {
+          margin-bottom: 1rem;
+        }
+        .modal-tech-tag {
+          display: inline-block;
+          background-color: #555;
+          color: #eee;
+          font-size: 0.8rem;
+          padding: 0.4rem 0.9rem;
+          border-radius: 20px;
+          margin-right: 0.5rem;
+          margin-bottom: 0.3rem;
+        }
+        body.light .modal-tech-tag {
+          background-color: #ddd;
+          color: #222;
+        }
+        .modal-close {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          font-size: 1.8rem;
+          color: #bbb;
+          cursor: pointer;
+          border: none;
+          background: transparent;
+          transition: color 0.3s;
+        }
+        .modal-close:hover,
+        .modal-close:focus {
+          color: #fff;
+          outline: none;
+        }
+        /* Skills */
+        #skills {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.6rem;
+          justify-content: center;
+        }
+        .skill-badge {
+          background-color: #333;
+          color: #ddd;
+          font-weight: 600;
+          font-size: 0.85rem;
+          padding: 0.4rem 0.9rem;
+          border-radius: 15px;
+          user-select: none;
+        }
+        body.light .skill-badge {
+          background-color: #ddd;
+          color: #222;
+        }
+        /* Footer */
+        footer {
+          text-align: center;
+          padding: 2rem 1rem;
+          color: #666;
+          font-size: 0.9rem;
+        }
+        body.light footer {
+          color: #444;
+        }
+        .profile-photo {
+            width: 280px;  /* bigger size */
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem; /* centers horizontally and adds bottom margin */
+            display: block; /* needed for margin auto to center the image */
+            border: 5px seashell #fff; /* optional: add a nice border */
+            box-shadow: 0 0 10px rgba(73, 73, 73, 0.3); /* optional: subtle shadow */
+        }
+        /* #experience {
+          max-width: 720px;
+          margin: 0 auto 3.5rem;
+          color: inherit;
+        }
+
+        .experience-item {
+          margin-bottom: 1.8rem;
+        }
+
+        .experience-item h3 {
+          font-weight: 700;
+          margin-bottom: 0.2rem;
+        }
+
+        .experience-item p {
+          font-style: italic;
+          color: #0e0e0e;
+          margin-top: 0;
+          margin-bottom: 0.6rem;
+        }
+
+        .experience-item ul {
+          padding-left: 1.4rem;
+          margin: 0;
+          color: #000000;
+          font-size: 1rem;
+          list-style-type: disc;
+        } */
+
+        /* OR */
+
+        /* .experience > div {
+          background: #fff;
+          padding: 1rem 1.5rem;
+          margin-bottom: 1.5rem;
+          border-radius: 6px;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .experience > div:hover {
+          transform: scale(1.02);
+          box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .experience h3 {
+          margin-top: 0;
+        } */
+      .now-playing {
+        background-color: #ffffff;
+        border-top: 2px seashell #ec4899;
+        color: #222;
+        padding: 2rem;
+        text-align: center;
+        max-width: 950px;
+        margin: 2rem auto;  /* centers the section horizontally */
+        border-radius: 25px;
+      }
+      .now-playing h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .now-playing p {
+        margin-bottom: 1rem;
+        line-height: 1.4;
+      }
+      /* iframe styles */
+      .now-playing iframe {
+        display: block;
+        margin: 0 auto;
+        border-radius: 0.5rem;
+        width: 100%;
+        max-width: 500px;
+        height: 470px;
+        border: none; /* Remove default iframe border */
+      }
+      /* Dark mode */
+      body.light .now-playing {
+        background-color: #ffffff;
+        color: #222;
+      }
+
+      body:not(.light) .now-playing {
+        background-color: #222;
+        color: #ffffff;
+      }
+
+      .music-embed {
+        margin-top: 0.5rem;
+      }
+
+      .social-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-height: 350px;
+        /* min-height: 10vh; full viewport height */
+      }
+
+
+        /* Responsive */
+        @media (max-width: 600px) {
+          #hero h1 {
+            font-size: 2.8rem;
+          }
+          nav {
+            gap: 1rem;
+          }
+          main {
+            padding: 6rem 1rem 3rem;
+          }
+        }
+      </style>
+  </head>
+
+  <body>
+    <header id="header" role="banner">
+      <div class="logo" tabindex="0" aria-label="Antipas Zemba Logo">Antipas Zemba</div>
+      <nav role="navigation" aria-label="Primary Navigation">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <button id="theme-toggle" aria-pressed="false" aria-label="Toggle Dark/Light Theme">Light Mode</button>
+    </header>
+    <br>
+    <br>
+    <main>
+      <section id="hero" tabindex="-1" aria-label="Introduction">
+        <img src="profile.jpg" alt="Antipas Zemba" class="profile-photo" />
+        <h1>Antipas Zemba</h1>
+        <p>Junior Software Developer</p>
+      </section>
+
+      <!-- Social Links Section -->
+      <section class="social-section">
+      <div class="flex flex-wrap justify-center gap-4 py-6">
+        <!-- GitHub Button -->
+        <a
+          href="https://github.com/AntipasZemba1"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-8 py-4 rounded-xl bg-gray-600 text-white shadow hover:bg-gray-500 dark:bg-gray-700 dark:hover:bg-gray-600 transition"
+        >
+          <span class="font-semibold">Github</span>
+        </a>
+        <!-- View My CV Button -->
+        <a
+          href="/Antipas.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-6 py-3 rounded-xl bg-purple-500 text-white shadow hover:bg-purple-600 transition"
+        >
+          <span class="font-semibold">Resume</span>
+        </a>
+        <!-- LinkedIn Button -->
+        <a
+          href="https://www.linkedin.com/in/antipas-zemba"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-6 py-3 rounded-xl bg-gray-600 text-white shadow hover:bg-gray-500 dark:bg-gray-700 dark:hover:bg-gray-600 transition"
+        >
+          <span class="font-semibold">LinkedIn</span>
+        </a>
+      </div>
+      </section>
+
+      <section id="about" tabindex="-1" aria-labelledby="about-heading">
+        <h2 id="about-heading">About Me</h2>
+        <p>Detail-driven junior Software Developer with a background in optimizing warehouse operations. Now pivoting into tech through the Microsoft Full Stack Developer Certificate on Coursera. Passionate about blending logistics insight with code to build smart, impactful solutions as part of a dynamic dev team.</p>
+      </section>
+
+      <!-- <section id="experience" class="experience">
+        <h2>Experience</h2>
+        <div>
+          <h3>Warehouse Supervisor</h3>
+          <p><em>Brand Worthy Sugarcreek Packing Co, Fairfield, OH — Jun 2022 to Current</em></p>
+          <ul>
+          <li>Coordinate and oversee daily shipping and receiving operations, including scheduling pickups and deliveries.</li>
+          <li>Supervise forklift operators and production pullers to ensure efficient and accurate movement of inventory.</li>
+          <li>Maintain detailed shipping and receiving logs; enter data into warehouse management systems and Excel spreadsheets.</li>
+          <li>Perform clerical tasks such as creating shipment reports, updating inventory records, and managing internal communications.</li>
+          <li>Respond to time-sensitive delivery issues and last-minute logistics changes using multiple software tools.</li>
+          <li>Enforce compliance with safety procedures in all loading and unloading areas.</li>
+          <li>Support administrative needs by handling correspondence, order paperwork, and filing systems.</li>
+          <li>Communicate clearly with team members, departments, and external partners to ensure timely workflow.</li>
+          <li>Ensure labeling accuracy and that all documentation matches physical shipments.</li>
+          <li>Assist with special projects and additional warehouse tasks as needed.</li>
+        </ul>
+        </div>
+      </section> -->
+  
+      <section id="projects" tabindex="-1" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Projects</h2>
+        <div class="filter-buttons" role="list" aria-label="Filter projects by technology">
+          <button class="filter-button active" data-filter="all" role="listitem" aria-pressed="true">All</button>
+          <button class="filter-button" data-filter="vbnet" role="listitem" aria-pressed="false">VB.NET</button>
+          <button class="filter-button" data-filter="python" role="listitem" aria-pressed="false">Python</button>
+          <button class="filter-button" data-filter="mssql" role="listitem" aria-pressed="false">MSSQL</button>
+        </div>
+        <div class="projects-grid" role="list" aria-label="List of projects">
+          <!-- Project Cards injected by JS -->
+        </div>
+      </section>
+
+      <section id="skills" tabindex="-1" aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Skills</h2>
+        <div>
+          <span class="skill-badge">HTML</span>
+          <span class="skill-badge">CSS</span>
+          <span class="skill-badge">JavaScript</span>
+          <span class="skill-badge">C#</span>
+          <span class="skill-badge">Python</span>
+          <span class="skill-badge">VB.NET</span>
+          <span class="skill-badge">MSSQL Server</span>
+          <span class="skill-badge">Git</span>
+          <span class="skill-badge">Agile</span>
+        </div>
+      </section>
+
+      <section id="contact" tabindex="-1" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Let's Connect </h2>
+        <form id="contact-form" aria-describedby="form-response">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required aria-required="true" autocomplete="name" />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required aria-required="true" autocomplete="email" />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+
+          <button type="submit">Send Message</button>
+          <p id="form-response" role="alert" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <section id="now-playing" class="now-playing">
+      <h2>"BĒYĀH” by Damso — Music meets code</h2>
+      <p>“Impardonnable” hits hard with its dark, emotional confession it’s like facing a mistake you can’t undo.<br>
+        “Fibonacci” is the calm in the storm precise, layered, and full of hidden patterns, like cracking the code to life’s chaos. Together, they capture the perfect balance of pain and control, making Beyah unforgettable.</p>
+      <div class="music-embed">
+        <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="550" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" 
+          sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" 
+          src="https://embed.music.apple.com/us/album/b%C4%93y%C4%81h/1815705934 ">
+        </iframe>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2025 Antipas Zemba. All rights reserved.
+    </footer>
+
+    <!-- Modal Template -->
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc" tabindex="-1">
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <h3 id="modal-title"></h3>
+        <div class="modal-tech-tags"></div>
+        <p id="modal-desc"></p>
+        <p><strong>Link: </strong><a href="#" target="_blank" rel="noopener noreferrer" id="modal-link"></a></p>
+      </div>
+    </div>
+
+    <script>
+      'use strict';
+
+      // Data for projects
+      const projects = [
+        {
+          id: 'vbauto',
+          title: 'VB-Auto Center',
+          shortDesc: 'App that calculates the total amount due for purchasing a vehicle with options and taxes... more',
+          details: 'Developed an application that calculates the total amount due for purchasing a vehicle. The app allows users to input the base price, trade-in allowance, and select optional features like sound system, leather interior, computer navigation, and exterior finishes with varying costs. It automatically computes accessory and finish prices, adds sales tax, subtracts trade-in value, and displays the final amount due. The app also includes clear and exit controls for user convenience.',
+          tech: ['vbnet'],
+          languages: ['Visual Basic .NET'],
+          link: 'https://github.com/AntipasZemba/VB-AutoCenter'
+        },
+        {
+          id: 'drivingquiz',
+          title: 'Driving License Quiz (CLI Application)',
+          shortDesc: 'An interactive, multilingual desktop quiz application. Designed to help users prepare for driving license test... more',
+          details: 'Created an interactive command-line quiz to help users prepare for their driving license test. The quiz supports English and French languages and covers key topics like traffic lights, road signs, speed limits, and emergency procedures. Features include timed multiple-choice questions, randomized question order, real-time feedback, score tracking, and pass/fail evaluation. The app also enforces an age restriction (16+), ensuring realistic user experience.',
+          tech: ['python'],
+          languages: ['Python (CLI and Tkinter)'],
+          link: 'https://github.com/AntipasZemba/DriverLicenseQuiz-with-tkinter'
+        },
+        {
+          id: 'golfathon',
+          title: 'Golfathon Data Analysis (SQL Queries)',
+          shortDesc: 'SQL queries to analyze fundraising data for charity golf event with insights and reports... more',
+          details: 'Developed a series of SQL queries to analyze fundraising data for a charity golf event. Used aggregate functions, GROUP BY, and HAVING clauses to extract insights such as the number of events held, sponsor counts and pledges by year, total collections, top-performing golfers, and highest/lowest sponsor contributions. Also identified teams with the most pledges and calculated corporate sponsorship totals, demonstrating strong skills in data aggregation and reporting.',
+          tech: ['mssql'],
+          languages: ['MSSQL Server'],
+          link: 'https://github.com/AntipasZemba/Golfathon'
+        },
+        {
+          id: 'todolist',
+          title: 'ToDo List Application',
+          shortDesc: 'Simple command-line ToDo list app demonstrating CRUD operations and user interaction...more',
+          details: 'Built a simple command-line ToDo List app that lets users add tasks, view all tasks, mark tasks as complete, delete tasks, and exit the program. This project demonstrates basic CRUD operations and user interaction via a clean and intuitive interface.',
+          tech: ['python'],
+          languages: ['Python (CLI)'],
+          link: 'https://github.com/AntipasZemba/ToDoList.py'
+        }
+      ];
+
+      // Elements
+      const projectsGrid = document.querySelector('.projects-grid');
+      const filterButtons = document.querySelectorAll('.filter-button');
+      const modal = document.querySelector('.modal');
+      const modalTitle = modal.querySelector('#modal-title');
+      const modalDesc = modal.querySelector('#modal-desc');
+      const modalTechTags = modal.querySelector('.modal-tech-tags');
+      const modalLink = modal.querySelector('#modal-link');
+      const modalClose = modal.querySelector('.modal-close');
+
+      // Render project cards filtered by tech
+      function renderProjects(filter = 'all') {
+        projectsGrid.innerHTML = '';
+        const filtered = filter === 'all' ? projects : projects.filter(p => p.tech.includes(filter));
+        filtered.forEach(proj => {
+          const card = document.createElement('article');
+          card.className = 'project-card';
+          card.tabIndex = 0;
+          card.setAttribute('role', 'listitem');
+          card.setAttribute('aria-label', proj.title + ' project. Click for details.');
+          card.dataset.id = proj.id;
+          card.innerHTML = `
+            <h3>${proj.title}</h3>
+            <p>${proj.shortDesc}</p>
+            <div class="tech-tags">${proj.languages.map(lang => `<span class="tech-tag">${lang}</span>`).join('')}</div>
+          `;
+          projectsGrid.appendChild(card);
+        });
+      }
+
+      // Handle filter button click
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterButtons.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
+          const filter = btn.dataset.filter;
+          renderProjects(filter);
+        });
+      });
+
+      // Modal open
+      function openModal(id) {
+        const proj = projects.find(p => p.id === id);
+        if (!proj) return;
+        modalTitle.textContent = proj.title;
+        modalDesc.textContent = proj.details;
+        modalTechTags.innerHTML = proj.tech.map(t => `<span class="modal-tech-tag">${t.toUpperCase()}</span>`).join('');
+        modalLink.textContent = proj.link;
+        modalLink.href = proj.link;
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        modal.focus();
+        document.body.style.overflow = 'hidden';
+      }
+      // Modal close
+      function closeModal() {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      window.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          closeModal();
+        }
+      });
+
+      // Open modal on project click or keypress
+      projectsGrid.addEventListener('click', e => {
+        const card = e.target.closest('.project-card');
+        if (card) openModal(card.dataset.id);
+      });
+      projectsGrid.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          const card = e.target.closest('.project-card');
+          if (card) {
+            e.preventDefault();
+            openModal(card.dataset.id);
+          }
+        }
+      });
+
+      // Intersection Observer for fade in sections and hero
+      const sections = document.querySelectorAll('section, #hero h1, #hero p');
+      const observerOptions = { threshold: 0.1 };
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('section').forEach(section => observer.observe(section));
+      observer.observe(document.querySelector('#hero h1'));
+      observer.observe(document.querySelector('#hero p'));
+
+      // Fixed header background on scroll
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', () => {
+        if(window.scrollY > 30) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+
+      // Nav link smooth scroll & active highlight
+      const navLinks = document.querySelectorAll('nav a.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const target = document.querySelector(link.getAttribute('href'));
+          if(target) {
+            target.focus({preventScroll:true});
+            target.scrollIntoView({behavior: 'smooth', block: 'start'});
+          }
+        });
+      });
+      window.addEventListener('scroll', () => {
+        let fromTop = window.scrollY + 80;
+        navLinks.forEach(link => {
+          const section = document.querySelector(link.getAttribute('href'));
+          if(section.offsetTop <= fromTop && (section.offsetTop + section.offsetHeight) > fromTop) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      });
+
+      // Theme toggle with localStorage
+      const themeToggle = document.getElementById('theme-toggle');
+      function applyTheme(theme) {
+        if(theme === 'light') {
+          document.body.classList.add('light');
+          themeToggle.textContent = '🌚🌙';
+          themeToggle.setAttribute('aria-pressed', 'true');
+        } else {
+          document.body.classList.remove('light');
+          themeToggle.textContent = '🌞☀️';
+          themeToggle.setAttribute('aria-pressed', 'false');
+        }
+      }
+      themeToggle.addEventListener('click', () => {
+        if(document.body.classList.contains('light')) {
+          localStorage.setItem('theme', 'dark');
+          applyTheme('dark');
+        } else {
+          localStorage.setItem('theme', 'light');
+          applyTheme('light');
+        }
+      });
+      // Load saved theme or default to dark
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      applyTheme(savedTheme);
+
+      // Contact form submission (dummy)
+      const form = document.getElementById('contact-form');
+      const formResponse = document.getElementById('form-response');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        formResponse.textContent = 'Thank you for your message! I will get back to you soon.';
+        form.reset();
+      });
+
+      // Initial render
+      renderProjects();
+
+    </script>
+  </body>
+</html>
