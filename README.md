@@ -1,10 +1,10 @@
-# 👨‍💻 Antipas Zemba - Junior Software Developer
+# Antipas Zemba - Junior Software Developer
 
 Welcome to my developer portfolio repository! I'm a Junior Software Developer transitioning from a background in logistics and warehouse operations. I’m passionate about leveraging tech to create efficient, meaningful solutions and currently expanding my skill set through the **Microsoft Full Stack Developer Certificate** on Coursera.
 
 ---
 
-## 📌 About Me
+## About Me
 
 - Detail-oriented developer with experience in real-world problem-solving
 - Strong foundation in VB.NET, Python, MSSQL, and web technologies
@@ -13,7 +13,7 @@ Welcome to my developer portfolio repository! I'm a Junior Software Developer tr
 
 ---
 
-## 🛠️ Skills
+## 📌 Skills
 
 - **Languages:** HTML, CSS, JavaScript, C#, Python, VB.NET
 - **Databases:** MSSQL Server
