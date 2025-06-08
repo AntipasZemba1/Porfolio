@@ -1,6 +1,6 @@
-# Antipas Zemba - Junior Software Developer
+# 👋 Hi, I'm Antipas Zemba - Junior Software Developer
 
-Welcome to my developer portfolio repository! I'm a Junior Software Developer transitioning from a background in logistics and warehouse operations. I’m passionate about leveraging tech to create efficient, meaningful solutions and currently expanding my skill set through the **Microsoft Full Stack Developer Certificate** on Coursera.
+Detail-driven junior Software Developer with a background in optimizing warehouse operations. Now pivoting into tech through the Microsoft Full Stack Developer Certificate on Coursera. Passionate about blending logistics insight with code to build smart, impactful solutions as part of a dynamic dev team.
 
 ---
 
