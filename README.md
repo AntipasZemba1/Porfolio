@@ -69,9 +69,9 @@ A basic ToDo app demonstrating CRUD operations. Users can:
 If you're interested in working together, have a project in mind, or just want to say hello:
 
 **Email:** _Available on LinkedIn or via contact form on my [portfolio site](#)_  
-**Portfolio Website:** Coming soon (hosted here)
+**Portfolio Website:** Coming soon 
 
 ---
 
 &copy; 2025 Antipas Zemba  
-_“Building better solutions — one line of code at a time.”_
+
