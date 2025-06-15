@@ -51,7 +51,7 @@ A basic ToDo app demonstrating CRUD operations. Users can:
 
 ## 📄 Resume & Links
 
-- [View My Resume (PDF)](/Antipas.pdf)
+- [View My Resume (PDF)](/assets/pdf/Antipas.pdf)
 - [LinkedIn](https://www.linkedin.com/in/antipas-zemba)
 - [GitHub Profile](https://github.com/AntipasZemba1)
 
